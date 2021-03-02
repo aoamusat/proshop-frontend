@@ -24,7 +24,7 @@ const LoginScreen = ({ location, history }) => {
         if (userInfo) {
             history.push(redirect);
         }
-    }, [dispatch, location, history, userInfo]);
+    }, [location, history]);
 
     /**
      * Handles login form submission
@@ -86,7 +86,7 @@ const LoginScreen = ({ location, history }) => {
                                 ? `/register?redirect${redirect}`
                                 : "/register"
                         }>
-                        Reset
+                        Reset Password
                     </Link>
                 </p>
             </Row>
