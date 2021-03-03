@@ -46,7 +46,7 @@ const ShippingScreen = ({ history }) => {
                         <Form.Label>City</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Victoria Island"
+                            placeholder="City"
                             name="city"
                             required
                             value={city}
@@ -55,7 +55,7 @@ const ShippingScreen = ({ history }) => {
                             }}></Form.Control>
                     </Form.Group>
                     <Form.Group controlId="postcode">
-                        <Form.Label>Address</Form.Label>
+                        <Form.Label>Zip/Postal Code</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder="Postal Code"

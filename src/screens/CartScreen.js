@@ -87,7 +87,7 @@ const CartScreen = ({ match, location, history }) => {
                                             </Col>
                                             <Col md={2}>
                                                 <strong>
-                                                    $&nbsp;{item.price}
+                                                    &#8358;&nbsp;{item.price}
                                                 </strong>
                                             </Col>
                                             <Col md={2}>
@@ -153,7 +153,7 @@ const CartScreen = ({ match, location, history }) => {
                                 ) Items
                             </h4>
                             <p>
-                                $&nbsp;
+                                &#8358;&nbsp;
                                 <strong>
                                     {cartItems
                                         .reduce((accumulator, item) => {
