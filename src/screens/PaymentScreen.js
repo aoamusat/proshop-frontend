@@ -41,19 +41,18 @@ const PaymentScreen = ({ history }) => {
                             <Form.Check
                                 type="radio"
                                 label="PayPal"
-                                id="PayPal"
+                                id="paypal"
                                 name="PAYMENT_METHOD"
-                                checked
                                 value="PayPal"
                                 onChange={(event) => {
                                     setPaymentMethod(event.target.value);
                                 }}></Form.Check>
                             <Form.Check
                                 type="radio"
-                                label="Credit Card/Bank Transfer"
+                                label="Credit Card"
                                 id="credit-card"
                                 name="PAYMENT_METHOD"
-                                value="Credit Card/Bank Transfer"
+                                value="Credit Card"
                                 onChange={(event) => {
                                     setPaymentMethod(event.target.value);
                                 }}></Form.Check>

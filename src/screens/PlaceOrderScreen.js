@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Row, ListGroup, Col, Image, Card } from "react-bootstrap";
 import CheckoutStep from "../components/CheckoutStep";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import { Link } from "react-router-dom";
+import { createOrder } from "../actions/orderActions";
 
-const PlaceOrderScreen = ({ history }) => {
+const PlaceOrderScreen = (props) => {
     const cart = useSelector((state) => state.cart);
 
-    console.log(cart);
+    const dispatch = useDispatch();
+
     // calculate prices using a reducer
     cart.itemsPrice = cart.cartItems.reduce((acc, item) => {
         return acc + item.price * item.quantity;
@@ -23,9 +25,32 @@ const PlaceOrderScreen = ({ history }) => {
         cart.itemsPrice +
         (cart.taxRate / 100) * cart.itemsPrice +
         cart.shippingPrice;
+
+    // Fetch orderCreate state from redux store
+    const orderCreate = useSelector((state) => state.orderCreate);
+
+    // Destructure the orderCreate state
+    const { order, error, success } = orderCreate;
+
+    const { history } = props;
+
+    useEffect(() => {
+        if (success) {
+            history.push(`/order/${order._id}`);
+        }
+    }, [history, success]);
+
     const placeOrderHandler = () => {
-        console.log("Order placed!");
-        history.push("/orders/history");
+        dispatch(
+            createOrder({
+                orderItems: cart.cartItems,
+                shippingAddress: cart.shippingAddress,
+                paymentMethod: cart.paymentMethod,
+                itemsPrice: cart.itemsPrice,
+                shippingPrice: Number(cart.shippingPrice).toFixed(2),
+                totalPrice: Number(cart.totalPrice).toFixed(2),
+            }),
+        );
     };
 
     return (
@@ -135,6 +160,18 @@ const PlaceOrderScreen = ({ history }) => {
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
+
+                            {error && (
+                                <ListGroup.Item>
+                                    <div
+                                        className="alert alert-danger"
+                                        role="alert">
+                                        <p>{error}</p>
+                                        <p className="mb-0"></p>
+                                    </div>
+                                </ListGroup.Item>
+                            )}
+
                             <ListGroup.Item>
                                 <Button
                                     type="button"
