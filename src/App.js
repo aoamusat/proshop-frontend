@@ -39,7 +39,7 @@ const App = () => {
                     <Route path="/placeorder" component={PlaceOrderScreen} />
                 </Container>
             </main>
-            <Footer />
+            {/* <Footer /> */}
         </Router>
     );
 };

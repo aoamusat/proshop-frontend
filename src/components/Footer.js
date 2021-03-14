@@ -122,35 +122,35 @@ const Footer = () => {
                             <div className="clearfix"></div>
                             <ul className="footer-payments">
                                 <li className="pl-0">
-                                    <a href="javascript:;">
+                                    <a href="#">
                                         <i
                                             className="fa fa-cc-amex"
                                             aria-hidden="true"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:;">
+                                    <a href="#">
                                         <i
                                             className="fa fa-cc-visa"
                                             aria-hidden="true"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:;">
+                                    <a href="#">
                                         <i
                                             className="fa fa-credit-card-alt"
                                             aria-hidden="true"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:;">
+                                    <a href="#">
                                         <i
                                             className="fa fa-cc-mastercard"
                                             aria-hidden="true"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:;">
+                                    <a href="#">
                                         <i
                                             className="fa fa-cc-paypal"
                                             aria-hidden="true"></i>
@@ -167,16 +167,11 @@ const Footer = () => {
                         <div className="col-lg-12 col-sm-12 mt-3 mb-3 text-center">
                             Copyright © 2020 - 2021{" "}
                             <a href="/" className="fs-14 text-primary">
-                                CodeWigs
+                                Proshop
                             </a>
-                            . Proudly Made In{" "}
-                            <strong>
-                                <span className="text-primary">NI</span>
-                                <span className="text-light">GER</span>
-                                <span className="text-primary">IA</span>
-                            </strong>{" "}
-                            All rights reserved.{" "}
-                            <a href="/disclaimer" className="text-danger">
+                            . Proudly Made In <strong>Nigeria</strong> All
+                            rights reserved.{" "}
+                            <a href="/#" className="text-danger">
                                 Disclaimer
                             </a>
                         </div>

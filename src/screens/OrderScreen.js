@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, ListGroup, Col, Image, Card, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import { Link } from "react-router-dom";
 import { getOrderDetails } from "../actions/orderActions";
 import Loader from "../components/Loader";
-import { useFlutterwave } from "flutterwave-react-v3";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
 const OrderScreen = (props) => {
     const { match } = props;
-
+    const orderId = match.params.id;
     const dispatch = useDispatch();
 
     const orderDetails = useSelector((state) => {
@@ -19,10 +19,11 @@ const OrderScreen = (props) => {
     const { order, error, loading } = orderDetails;
 
     const config = {
-        public_key: process.env.FLUTTER_PUBLIC_KEY,
+        public_key: process.env.REACT_APP_FLUTTER_PUBLIC_KEY,
         tx_ref: Date.now(),
         amount: 5000,
         currency: "NGN",
+        redirect_url: `http://localhost:3000/order/${mainOrder._id}`,
         payment_options: "card,mobilemoney,ussd",
         customer: {
             email: "aoamusat@kudi.co",
@@ -36,6 +37,10 @@ const OrderScreen = (props) => {
         },
     };
 
+    useEffect(() => {
+        dispatch(getOrderDetails(`${orderId}`));
+    }, [match, order]);
+
     const handlePayment = useFlutterwave(config);
 
     if (!loading) {
@@ -43,12 +48,6 @@ const OrderScreen = (props) => {
             return acc + item.price * item.quantity;
         }, 0);
     }
-
-    const orderId = match.params.id;
-
-    useEffect(() => {
-        dispatch(getOrderDetails(`${orderId}`));
-    }, []);
 
     return loading ? (
         <Loader></Loader>
@@ -189,6 +188,7 @@ const OrderScreen = (props) => {
                                                 handlePayment({
                                                     callback: (response) => {
                                                         console.log(response);
+                                                        closePaymentModal();
                                                     },
                                                 });
                                             }}
