@@ -18,30 +18,34 @@ const OrderScreen = (props) => {
 
     const { order, error, loading } = orderDetails;
 
-    const config = {
-        public_key: process.env.REACT_APP_FLUTTER_PUBLIC_KEY,
-        tx_ref: Date.now(),
-        amount: 5000,
-        currency: "NGN",
-        redirect_url: `http://localhost:3000/order/${mainOrder._id}`,
-        payment_options: "card,mobilemoney,ussd",
-        customer: {
-            email: "aoamusat@kudi.co",
-            name: `Akeem Amusat`,
-        },
-        customizations: {
-            title: "Proshop",
-            description: "Payment for items in cart",
-            logo:
-                "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
-        },
-    };
+    let flutterConfig = {};
+
+    if (order) {
+        flutterConfig = {
+            public_key: process.env.REACT_APP_FLUTTER_PUBLIC_KEY,
+            tx_ref: Date.now(),
+            amount: order.totalPrice,
+            currency: "NGN",
+            redirect_url: `http://localhost:3000/order/${order._id}`,
+            payment_options: "card,mobilemoney,ussd",
+            customer: {
+                email: `${order.user.email}`,
+                name: `${order.user.name}`,
+            },
+            customizations: {
+                title: "Proshop | Gears for Developers",
+                description: "Payment for items in cart",
+                logo:
+                    "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
+            },
+        };
+    }
 
     useEffect(() => {
         dispatch(getOrderDetails(`${orderId}`));
-    }, [match, order]);
+    }, []);
 
-    const handlePayment = useFlutterwave(config);
+    const handlePayment = useFlutterwave(flutterConfig);
 
     if (!loading) {
         order.itemsPrice = order.orderItems.reduce((acc, item) => {
@@ -53,7 +57,7 @@ const OrderScreen = (props) => {
         <Loader></Loader>
     ) : error ? (
         <Message variant="danger">{error}</Message>
-    ) : (
+    ) : order ? (
         <React.Fragment>
             <Row>
                 <Col md={8}>
@@ -204,6 +208,8 @@ const OrderScreen = (props) => {
                 </Col>
             </Row>
         </React.Fragment>
+    ) : (
+        <Message></Message>
     );
 };
 
