@@ -7,13 +7,15 @@ import { login } from "../actions/userActions";
 import FormContainer from "../components/FormContainer";
 import Message from "../components/Message";
 
-const LoginScreen = ({ location, history }) => {
+const LoginScreen = (props) => {
+    const { location, history } = props;
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const redirect = location.search ? location.search.split("=")[1] : "/";
 
     const dispatch = useDispatch();
+
     const userLogin = useSelector((state) => {
         return state.userLogin;
     });
@@ -23,6 +25,7 @@ const LoginScreen = ({ location, history }) => {
     useEffect(() => {
         if (userInfo) {
             history.push(redirect);
+            window.location.reload();
         }
     }, [location, history]);
 
@@ -33,6 +36,7 @@ const LoginScreen = ({ location, history }) => {
      */
     const handleFormSubmit = (event) => {
         event.preventDefault();
+        console.log(location);
         dispatch(login(email, password));
     };
 

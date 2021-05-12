@@ -70,3 +70,8 @@ export const userProfileUpdateReducer = (state = {}, action) => {
             return state;
     }
 };
+
+export const userPasswordResetReducer = (state = {}, action) => {
+    switch (action.type) {
+    }
+};

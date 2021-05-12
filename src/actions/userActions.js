@@ -13,6 +13,7 @@ import {
     USER_UPDATE_REQUEST,
     USER_UPDATE_SUCCESS,
 } from "../constants/userConstants";
+
 import axios from "axios";
 
 /**
@@ -27,9 +28,11 @@ export const login = (email, password) => {
             dispatch({
                 type: USER_LOGIN_REQUEST,
             });
+
             const config = {
                 headers: {
                     "Content-Type": "application/json",
+                    Accept: "*/*",
                 },
             };
 
@@ -43,6 +46,7 @@ export const login = (email, password) => {
                 type: USER_LOGIN_SUCCESS,
                 payload: data,
             });
+
             localStorage.setItem("userInfo", JSON.stringify(data));
         } catch (error) {
             dispatch({
